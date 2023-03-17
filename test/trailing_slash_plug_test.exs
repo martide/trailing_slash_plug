@@ -28,7 +28,7 @@ defmodule TrailingSlashPlugTest do
 
     test "does not redirect when path is equal to /" do
       conn = %Conn{request_path: "/", status: 200}
-      
+
       response = TrailingSlashPlug.call(conn, [])
       assert response.status == 200
       refute {"location", "/"} in response.resp_headers
