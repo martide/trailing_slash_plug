@@ -1,6 +1,6 @@
 # TrailingSlashPlug
 
-**A plug for removing slash at the end of a request path and sending a 301
+A plug for removing slash at the end of a request path and sending a 301
 
 ## Installation
 
