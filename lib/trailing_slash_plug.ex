@@ -1,6 +1,4 @@
 defmodule TrailingSlashPlug do
-  import Plug.Conn
-
   @moduledoc """
   A plug for removing slash at the end of request path and sending a 301 status
 
@@ -19,6 +17,8 @@ defmodule TrailingSlashPlug do
       pipe_through([:trailing_slash])
     end
   """
+  @behaviour Plug
+  import Plug.Conn
 
   def init(opts), do: opts
 
