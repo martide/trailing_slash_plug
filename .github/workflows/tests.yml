@@ -30,6 +30,8 @@ jobs:
     - run: mix deps.unlock --check-unused
     - run: mix hex.audit
     - run: mix format --dry-run --check-formatted
+    - run: elixir --logger-sasl-reports true -S mix coveralls.json
+    - uses: codecov/codecov-action@v3
 
   elixir_1_14:
     runs-on: ubuntu-20.04
