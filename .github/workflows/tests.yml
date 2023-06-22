@@ -8,13 +8,13 @@ env:
 # https://github.com/elixir-lang/elixir/blob/master/lib/elixir/pages/compatibility-and-deprecations.md
 jobs:
   tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: erlef/setup-beam@v1
       with:
-        otp-version: "25.x"
-        elixir-version: "1.14.x"
+        otp-version: "26.x"
+        elixir-version: "1.15.x"
     - uses: actions/cache@v3
       with:
         path: |
@@ -27,16 +27,37 @@ jobs:
     - run: mix compile --warnings-as-errors
     - run: mix deps.unlock --check-unused
     - run: mix hex.audit
+    # -run: mix doctor
     - run: mix format --dry-run --check-formatted
+    - run: mix sobelow --config
+    - run: mix format --dry-run --check-formatted
+    - run: mix credo --strict
+    - run: mix dialyzer
     - run: elixir --logger-sasl-reports true -S mix coveralls.json
     - uses: codecov/codecov-action@v3
 
-  elixir_1_14:
-    runs-on: ubuntu-20.04
+  elixir_1_15:
+    runs-on: ubuntu-latest
     name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
       matrix:
-        otp: [23.x, 24.x, 25.x]
+        otp: [24.x, 25.x, 26.x]
+        elixir: [1.15.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix do deps.get, compile --all-warnings --warnings-as-errors
+      - run: mix test
+
+  elixir_1_14:
+    runs-on: ubuntu-latest
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        otp: [24.x, 25.x]
         elixir: [1.14.x]
     steps:
       - uses: actions/checkout@v3
