@@ -53,7 +53,7 @@ defmodule TrailingSlashPlug.MixProject do
       maintainers: ["Martide"],
       licenses: ["MIT"],
       links: %{
-        "GitHub" => "https://github.com/martide/trailing_slash"
+        "GitHub" => "https://github.com/martide/trailing_slash_plug"
       }
     ]
   end
