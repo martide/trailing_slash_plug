@@ -26,7 +26,7 @@ defmodule TrailingSlashPlug do
     path = conn.request_path
 
     if String.ends_with?(path, "/") && path != "/" do
-      new_path = String.slice(path, 0..-2)
+      new_path = String.slice(path, 0..-2//-1)
 
       conn
       |> put_status(301)
