@@ -8,7 +8,7 @@ defmodule TrailingSlashPlug.MixProject do
       app: :trailing_slash_plug,
       version: @version,
       description: "A plug to remove the trailing slash",
-      elixir: "~> 1.14",
+      elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
